@@ -24,12 +24,14 @@
 
 - name: Install required packages
   tags: logrotate
+  sudo: yes
   with_items: logrotate_package_list
   action: "{{ ansible_pkg_mgr }} state={{ logrotate_package_list_state }} name={{ item }}"
 
 
 - name: Install logrotate targets configuration
   tags: logrotate
+  sudo: yes
   with_items: logrotate_targets
   template:
     src=logrotate.j2

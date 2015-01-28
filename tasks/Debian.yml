@@ -1,6 +1,7 @@
 ---
 - name: Update apt package cache
   tags: logrotate
+  sudo: yes
   apt:
     update_cache=yes
     cache_valid_time={{ global_apt_cache_valid_time|default(3600) }}
