@@ -1,4 +1,10 @@
 ---
 - hosts: all
+  vars:
+    logrotate_targets:
+      - name: ansiblelogrotatetest
+        files:
+          - /var/log/foo.log
+          - /var/log/bar.log
   roles:
     - { role: ansible-logrotate }

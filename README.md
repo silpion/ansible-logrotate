@@ -1,26 +1,60 @@
 # ansible-logrotate
 
-Description...
+Configure logrotation.
 
 ## Requirements
 
-Requirements...
+None.
 
 ## Role Variables
 
-* ``variable_name``: Variable description (<!variable type>, default: ``variable default value``)
+* ``logrotate_targets``: Configure log rotation targets and options (dict, default: ``{}``)
+* ``logrotate_package_list_state``: Wheter packages are state ``installed`` or ``latest`` (string, default: ``installed``)
 
-### complex_variable_name
+### logrotate_targets
 
-Complex variable documentation...
+``logrotate_targets`` allow to configure logrotation for any number of files per
+dictionary key. Each logrotate_targets key supports all options from logrotate
+(``man 5 logrotate.conf``) with the ``options`` list.
 
-### another_complex_variable_name
+Generated templates are verified with ``logrotate -d %s`` before they are
+copied to the logrotate.d directory.
 
-Complex variable documentation...
+    logrotate_targets:
+      - name: foobar
+        files:
+          - /var/log/foo/*.log
+          - /var/log/bar/*.log
+        options:
+          - "rotate 7"
+          - daily
+          - missingok
+          - notifempty
+          - compress
+        ...
+
+Configuring a file name/pattern only results in the following logrotate
+configuration:
+
+    logrotate_targets:
+      - name: foobar
+        files:
+          - /var/log/foo/bar*.log
+
+<!-- -->
+
+    /var/log/foo/bar*.log
+    {
+      rotate 7
+      daily
+      missingok
+      notifempty
+      compress
+    }
 
 ## Dependencies
 
-Dependencies...
+None.
 
 ## Example Playbook
 
@@ -59,7 +93,7 @@ Ruby with rake and bundler available.
 
 ## Author information
 
-<!Author Name> @<!email_prefix> <!email_suffix>
+Mark Kusch @silpion.de mark.kusch
 
 
 <!-- vim: set nofen ts=4 sw=4 et: -->

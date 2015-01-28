@@ -1,0 +1,3 @@
+---
+logrotate_package_list:
+  - logrotate

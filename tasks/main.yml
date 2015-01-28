@@ -1,2 +1,40 @@
 ---
-# tasks file for ansible-logrotate
+- name: Assert supported platform
+  tags: logrotate
+  assert:
+    that:
+      ansible_os_family in logrotate_supported_platforms
+
+- name: Assert role configuration
+  tags: logrotate
+  assert:
+    that:
+      logrotate_package_list_state in ('installed', 'latest')
+
+
+- name: Include OS specific vars
+  tags: logrotate
+  include_vars: "{{ ansible_os_family }}.yml"
+
+
+- include: Debian.yml
+  tags: logrotate
+  when: ansible_os_family == 'Debian'
+
+
+- name: Install required packages
+  tags: logrotate
+  with_items: logrotate_package_list
+  action: "{{ ansible_pkg_mgr }} state={{ logrotate_package_list_state }} name={{ item }}"
+
+
+- name: Install logrotate targets configuration
+  tags: logrotate
+  with_items: logrotate_targets
+  template:
+    src=logrotate.j2
+    dest=/etc/logrotate.d/ansible_logrotate_{{ item.name }}
+    owner=0
+    group=0
+    mode=0644
+    validate='logrotate -d %s'

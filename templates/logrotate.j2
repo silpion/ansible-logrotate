@@ -1,0 +1,55 @@
+#  --------------------
+# ( Managed by Ansible )
+#  --------------------
+#   o            .    .     .
+#    o      .  . .     `  ,
+#     o    .; .  : .' :  :  : .
+#      o   i..`: i` i.i.,i  i .
+#       o   `,--.|i |i|ii|ii|i:
+#            UooU\.'@@@@@@`.||'
+#            \__/(@@@@@@@@@@)'
+#                 (@@@@@@@@)
+#                 `YY~~~~YY'
+#                  ||    ||
+
+{% for file in item.files %}
+{{ file }}
+{% endfor %}
+{
+{% if item.options is not defined %}
+  rotate 7
+  daily
+  missingok
+  notifempty
+  compress
+{% else %}
+{% for option in item.options %}
+  {{ option }}
+{% endfor %}
+{% endif %}
+{% if item.postrotate is defined %}
+  postrotate
+    {{ item.postrotate }}
+  endscript
+{% endif %}
+{% if item.prerotate is defined %}
+  prerotate
+    {{ item.prerotate }}
+  endscript
+{% endif %}
+{% if item.firstaction is defined %}
+  firstaction
+    {{ item.firstaction }}
+  endscript
+{% endif %}
+{% if item.lastaction is defined %}
+  lastaction
+    {{ item.lastaction }}
+  endscript
+{% endif %}
+{% if item.preremove is defined %}
+  preremove
+    {{ item.preremove }}
+  endscript
+{% endif %}
+}
