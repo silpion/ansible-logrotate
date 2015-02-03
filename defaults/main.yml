@@ -1,6 +1,6 @@
 ---
 # Configure logrotate targets
-logrotate_targets: {}
+logrotate_targets: []
 
 # Whether packages are state 'installed' or 'latest'
 logrotate_package_list_state: installed
