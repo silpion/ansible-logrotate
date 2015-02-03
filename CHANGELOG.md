@@ -1,3 +1,10 @@
+# 0.1.2
+
+Mark Kusch (2):
+
+* Add basic integration tests
+* fatal: [<HOST>] => with_items expects a list or a set
+
 # 0.1.1
 
 Mark Kusch (1):
