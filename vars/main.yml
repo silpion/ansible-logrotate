@@ -1,3 +1,6 @@
 ---
 logrotate_supported_platforms:
   - Debian
+
+# lookup role version
+logrotate_role_version: "{{ lookup('file', role_path + '/VERSION') }}"
