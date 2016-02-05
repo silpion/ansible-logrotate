@@ -4,4 +4,4 @@
   become: true
   apt:
     update_cache: true
-    cache_valid_time: "{{ global_apt_cache_valid_time|default(3600) }}"
+    cache_valid_time: "{{ logrotate_apt_cache_valid_time }}"
