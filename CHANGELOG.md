@@ -1,3 +1,14 @@
+# 2.0.0
+Anja Siek (3):
+
+* update role generator, fix deprication warnings, fix styles
+* add missing files
+* fix styleguide
+
+Mark Kusch (1):
+
+* Use util vars when configuring module defaults
+
 # 0.1.2
 
 Mark Kusch (2):

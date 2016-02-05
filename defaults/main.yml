@@ -3,4 +3,5 @@
 logrotate_targets: []
 
 # Whether packages are state 'installed' or 'latest'
-logrotate_package_list_state: installed
+logrotate_package_list_state: "{{ util_package_state|default('installed') }}"
+logrotate_apt_cache_valid_time: "{{ util_apt_cache_valid_time|default(3600) }}"
