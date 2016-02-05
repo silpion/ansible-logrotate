@@ -26,7 +26,10 @@
   tags: logrotate
   become: true
   with_items: logrotate_package_list
-  action: "{{ ansible_pkg_mgr }} state={{ logrotate_package_list_state }} name={{ item }}"
+  action: "{{ ansible_pkg_mgr }}"
+  args:
+    state: "{{ logrotate_package_list_state }}"
+    name: "{{ item }}"
 
 
 - name: Install logrotate targets configuration
