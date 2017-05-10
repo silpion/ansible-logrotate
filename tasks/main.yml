@@ -9,7 +9,7 @@
   tags: logrotate
   assert:
     that:
-      logrotate_package_list_state in ('installed', 'latest')
+      logrotate_package_list_state in ('present', 'installed', 'latest')
 
 
 - name: Include OS specific vars
@@ -25,17 +25,17 @@
 - name: Install required packages
   tags: logrotate
   become: true
-  with_items: logrotate_package_list
+  with_items: "{{ logrotate_package_list }}"
   action: "{{ ansible_pkg_mgr }}"
   args:
-    state: "{{ logrotate_package_list_state }}"
+    state: "{{ logrotate_package_list_state|default('present') }}"
     name: "{{ item }}"
 
 
 - name: Install logrotate targets configuration
   tags: logrotate
   become: true
-  with_items: logrotate_targets
+  with_items: "{{ logrotate_targets }}"
   template:
     src: logrotate.j2
     dest: "/etc/logrotate.d/ansible_logrotate_{{ item.name }}"
